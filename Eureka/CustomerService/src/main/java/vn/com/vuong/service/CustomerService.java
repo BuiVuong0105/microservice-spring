@@ -1,7 +1,11 @@
 package vn.com.vuong.service;
 
-import vn.com.vuong.model.Customer;
+import java.util.List;
+import java.util.Optional;
+
+import vn.com.vuong.entity.Customer;
 
 public interface CustomerService {
-	Customer getCustomer();
+	List<Customer> search();
+	Optional<Customer> findById(Integer id);
 }

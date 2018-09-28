@@ -1,16 +1,16 @@
-package vn.com.vuong.model;
+package vn.com.vuong.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class Customer implements Serializable {
+@NoArgsConstructor
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
-	private List<Product> products;
 }

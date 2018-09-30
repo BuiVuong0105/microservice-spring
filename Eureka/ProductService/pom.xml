@@ -46,7 +46,6 @@
 			<artifactId>spring-cloud-starter-ribbon</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>vn.com.vuong</groupId>
 			<artifactId>CommonUtil</artifactId>

@@ -12,6 +12,6 @@ import vn.com.vuong.exception.Error;
 public class AddviceController {
 	 @ExceptionHandler(DataFailException.class)
 	  public ResponseEntity<Error> dataConflict(DataFailException exception) {
-		 return new ResponseEntity<Error>(new Error(exception.getCode(), exception.getMessage()), HttpStatus.OK);
+		 return new ResponseEntity<Error>(new Error(exception.getCode(), exception.getMessage()), HttpStatus.BAD_REQUEST);
 	  }
 }

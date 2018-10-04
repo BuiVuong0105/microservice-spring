@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Payment implements Serializable {
+public class Payment implements Serializable, BaseData {
 	private static final long serialVersionUID = 1L;
 	private Customer customer;
 	private Product product;

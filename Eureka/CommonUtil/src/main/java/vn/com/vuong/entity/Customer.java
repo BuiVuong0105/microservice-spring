@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer implements Serializable {
+public class Customer implements Serializable, BaseData {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;

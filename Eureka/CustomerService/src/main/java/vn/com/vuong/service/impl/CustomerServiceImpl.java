@@ -9,29 +9,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import vn.com.vuong.consumer.ProductService;
+import vn.com.vuong.consumer.ProductConsumer;
 import vn.com.vuong.entity.Customer;
 import vn.com.vuong.entity.Product;
+import vn.com.vuong.exception.DataFailException;
+import vn.com.vuong.exception.Error;
 import vn.com.vuong.model.DataResult;
 import vn.com.vuong.service.CustomerService;
-import vn.com.vuong.util.JsonUtils;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
-	private ProductService productService;
+	private ProductConsumer productConsumer;
 	
 	@Override
 	public List<Customer> search() {
 		List<Product> products  = new ArrayList<>();
-		ResponseEntity<?> responseEntity = productService.search().orElse(null);
-		if(responseEntity != null) {
-			if(responseEntity.getStatusCode() != HttpStatus.OK) {
-				DataResult<Product> dataResult = JsonUtils.toObject(responseEntity.getBody(), DataResult.class);
-				products = dataResult.getResults();
-			}
+		ResponseEntity<?> responseEntity = productConsumer.search().orElse(null);
+		if(responseEntity.getStatusCode() != HttpStatus.OK) {
+			Error error = (Error) responseEntity.getBody();
+			throw new DataFailException(error.getCode(), error.getMessage());
 		}
+		DataResult<Product> dataResult = (DataResult<Product>) responseEntity.getBody();
+		products = dataResult.getResults();
 		List<Customer> customers = new ArrayList<>();
 		Customer customer = new Customer(1, "Bui Van Vuong", products);
 		customers.add(customer);

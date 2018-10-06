@@ -30,10 +30,12 @@ public class ProductConsumer {
 	private LoadBalancerClient loadBalancer;
 
 	public Optional<ResponseEntity<?>> search() {
-		List<ServiceInstance> instances = discoveryClient.getInstances(vn.com.vuong.util.Service.PRODUCT_SERVICE);
+//		List<ServiceInstance> instances = discoveryClient.getInstances(vn.com.vuong.util.Service.PRODUCT_SERVICE);
+		List<ServiceInstance> instances = discoveryClient.getInstances(vn.com.vuong.util.Service.ZUUL_SERVICE);
 		ServiceInstance serviceInstance = instances.get(0);
 		String baseUrl = serviceInstance.getUri().toString();
-		baseUrl = baseUrl + "/products";
+		baseUrl = baseUrl + "/productservice/products";
+		System.out.println("BASEUERL: " + baseUrl);
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<?> response = null;
 		try {
@@ -48,9 +50,10 @@ public class ProductConsumer {
 	}
 
 	public Optional<ResponseEntity<?>> findProductById(Integer productId) {
-		ServiceInstance serviceInstance = loadBalancer.choose(vn.com.vuong.util.Service.PRODUCT_SERVICE);
+//		ServiceInstance serviceInstance = loadBalancer.choose(vn.com.vuong.util.Service.PRODUCT_SERVICE);
+		ServiceInstance serviceInstance = loadBalancer.choose(vn.com.vuong.util.Service.ZUUL_SERVICE);
 		String baseUrl = serviceInstance.getUri().toString();
-		baseUrl = baseUrl + "/product/" + productId;
+		baseUrl = baseUrl + "/productservice/product/" + productId;
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<?> response = null;
 		try {

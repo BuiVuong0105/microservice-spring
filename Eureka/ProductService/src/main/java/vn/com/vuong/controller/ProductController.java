@@ -24,9 +24,6 @@ public class ProductController {
 	@GetMapping(value = API.Product.SEARCH_PRODUCT)
 	public ResponseEntity<DataResult<Product>> search() {
 		List<Product> products = productService.search();
-		if (products == null) {
-			throw new DataFailException(404, "not found");
-		}
 		return new ResponseEntity<DataResult<Product>>(new DataResult<>(products.size(), products), HttpStatus.OK);
 	}
 	
